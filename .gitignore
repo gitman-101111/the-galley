@@ -1,0 +1,114 @@
+# Build directories
+src/
+build_mods/avbroot
+tmp/
+build/
+dist/
+out/
+
+# Sensitive files - CRITICAL TO EXCLUDE
+*.key
+*.pem
+*.pk8
+*.pub
+*.sec
+*.crt
+*.der
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+private_key*
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+
+# Binary keys and certificates
+*.bin
+*_pkmd.bin
+
+# Environment and configuration files with potential secrets
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+config.json
+secrets.json
+credentials.json
+*.config
+docker-compose.yml
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+vendor/
+venv/
+env/
+.venv/
+*.egg-info/
+__pycache__/
+*.pyc
+*.pyo
+*.ogg
+
+# Logs
+*.log
+logs/
+*.err
+*.out
+
+# Test coverage
+coverage/
+.coverage
+*.lcov
+.nyc_output/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Package files
+*.tar
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# Docker
+.dockerignore
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+
+# Ansible
+*.retry
+vault.yml

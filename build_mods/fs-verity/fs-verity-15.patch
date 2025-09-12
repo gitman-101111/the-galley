@@ -1,0 +1,30 @@
+diff --git a/target/product/base_system.mk b/target/product/base_system.mk
+index 9b67f653d7..161c6bb6c3 100644
+--- a/target/product/base_system.mk
++++ b/target/product/base_system.mk
+@@ -104,6 +104,7 @@ PRODUCT_PACKAGES += \
+     fsck.erofs \
+     fsck_msdos \
+     fsverity-release-cert-der \
++    fsverity-cert-0-der \
+     fs_config_files_system \
+     fs_config_dirs_system \
+     gpu_counter_producer \
+diff --git a/target/product/security/Android.bp b/target/product/security/Android.bp
+index 0d7b35e1c9..df31f66d16 100644
+--- a/target/product/security/Android.bp
++++ b/target/product/security/Android.bp
+@@ -26,6 +26,13 @@ prebuilt_etc {
+     filename_from_src: true,
+ }
+ 
++prebuilt_etc {
++    name: "fsverity-cert-0-der",
++    src: "fsverity_cert.0.der",
++    sub_dir: "security/fsverity",
++    filename_from_src: true,
++}
++
+ // otacerts: A keystore with the authorized keys in it, which is used to verify
+ // the authenticity of downloaded OTA packages.
+ // This module zips files defined in PRODUCT_DEFAULT_DEV_CERTIFICATE and

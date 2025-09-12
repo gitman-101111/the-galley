@@ -1,0 +1,50 @@
+services:
+  the-galley:
+    hostname: the-galley
+    container_name: the-galley
+    volumes:
+      - './src/:/src'
+      - './build.sh:/build.sh'
+      - './build_mods:/build_mods'
+      - './tmp:/tmp'
+    environment:
+      # User/Group permissions
+      - USR=1000                          # User ID for file ownership (use 'id -u' to find yours)
+      - GRP=1000                          # Group ID for file ownership (use 'id -g' to find yours)
+
+      # Build configuration (REQUIRED)
+      - OS=grapheneos-16                  # Working directory name under /src/ 
+      - TGT=tangorpro,caiman              # Target devices to build for (comma-separated)
+      - TAG=16                            # GrapheneOS tag/branch to sync from GitHub
+      - GOOGLE_BUILD_ID=BP2A.250805.005   # Google build ID for extracting vendor files
+      - VERSION=16                        # Android version number (used for patches)
+
+      # Signing configuration
+      - CN=Something                      # Certificate Common Name for key generation
+      - CERTPASS=                         # Password for signing keys (empty = no password)
+
+      # OTA/Update configuration  
+      - UPDATE_URL=https://updates.server.address/  # URL for OTA updates (must end with /)
+
+      # Build options
+      - CLEAN_BUILD=false                 # true = clean out directory before building
+      - ROOT_TYPE=magisk                  # Root method: 'magisk' or 'kernelsu' (kernelsu builds kernel)
+
+      # Distribution options
+      - PUSH=true                         # Whether to prepare files for pushing to update server
+      #- RSYNC_TARGET=admin@192.168.1.250:/volume1/updateserver/data/  # Where to rsync releases
+
+      # Notifications (optional)
+      #- APPRISE_URLS=[apprise formatted URL here]  # Apprise notification URL
+    tty: true
+    stdin_open: true
+    restart: no
+    # Need to run as privileged to mount/extract images
+    privileged: true
+    image: the-galley:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+
+# Run in background: docker-compose up -d
+# View logs: docker logs -f the-galley

@@ -1,0 +1,175 @@
+diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
+index b6dda850a311..a925ec1d07b7 100644
+--- a/core/res/res/values/config.xml
++++ b/core/res/res/values/config.xml
+@@ -896,7 +896,7 @@
+              1 - MODE_NIGHT_NO
+              2 - MODE_NIGHT_YES
+     -->
+-    <integer name="config_defaultNightMode">1</integer>
++    <integer name="config_defaultNightMode">2</integer>
+ 
+     <!-- Boolean indicating whether the HWC setColorTransform function can be performed efficiently
+          in hardware. -->
+@@ -1430,7 +1430,7 @@
+     <integer name="config_lowBatteryWarningLevel">20</integer>
+ 
+     <!-- The default suggested battery % at which we enable battery saver automatically.  -->
+-    <integer name="config_lowBatteryAutoTriggerDefaultLevel">15</integer>
++    <integer name="config_lowBatteryAutoTriggerDefaultLevel">35</integer>
+ 
+     <!-- The app which will handle routine based automatic battery saver, if empty the UI for
+          routine based battery saver will be hidden -->
+@@ -1549,7 +1549,7 @@
+ 
+     <!-- Note: This setting is deprecated, please use
+     config_screenBrightnessSettingMinimumFloat instead -->
+-    <integer name="config_screenBrightnessSettingMinimum">10</integer>
++    <integer name="config_screenBrightnessSettingMinimum">0</integer>
+ 
+     <!-- Note: This setting is deprecated, please use
+     config_screenBrightnessSettingMaximumFloat instead -->
+@@ -2290,13 +2290,13 @@
+     <integer name="config_audio_notif_vol_steps">7</integer>
+ 
+     <!-- The default volume for the notification stream -->
+-    <integer name="config_audio_notif_vol_default">5</integer>
++    <integer name="config_audio_notif_vol_default">0</integer>
+ 
+     <!-- The number of volume steps for the ring stream -->
+     <integer name="config_audio_ring_vol_steps">7</integer>
+ 
+     <!-- The default volume for the ring stream -->
+-    <integer name="config_audio_ring_vol_default">5</integer>
++    <integer name="config_audio_ring_vol_default">0</integer>
+ 
+     <!-- The default min volume for the alarm stream -->
+     <integer name="config_audio_alarm_min_vol">1</integer>
+@@ -2664,7 +2664,9 @@
+          Items must be in the form: "ntp://<host>[:port]"
+          This is not a registered IANA URI scheme. -->
+     <string-array translatable="false" name="config_ntpServers">
+-        <item>ntp://time.android.com</item>
++        <item>ntp://tick.usno.navy.mil</item>
++        <item>ntp://tock.usno.navy.mil</item>
++        <item>ntp://ntp2.usno.navy.mil</item>
+     </string-array>
+     <!-- SNTP client config: Timeout to wait for an NTP server response in milliseconds. -->
+     <integer name="config_ntpTimeout">5000</integer>
+@@ -4564,7 +4566,7 @@
+          animations. Note that this is only a default and will be overridden by a
+          user-set value if toggled by settings so the "Transition animation scale" setting
+          should also be hidden if intended to be permanent. -->
+-    <item name="config_appTransitionAnimationDurationScaleDefault" format="float" type="dimen">1.0</item>
++    <item name="config_appTransitionAnimationDurationScaleDefault" format="float" type="dimen">0.5</item>
+ 
+     <!-- Flag indicates that whether non-system apps can be installed on internal storage. -->
+     <bool name="config_allow3rdPartyAppOnInternal">true</bool>
+diff --git a/core/res/res/values/config_device_idle.xml b/core/res/res/values/config_device_idle.xml
+index cc7b891b9377..a56d887575e9 100644
+--- a/core/res/res/values/config_device_idle.xml
++++ b/core/res/res/values/config_device_idle.xml
+@@ -28,16 +28,16 @@
+     <integer name="device_idle_flex_time_short_ms">60000</integer>
+ 
+     <!-- Default for DeviceIdleController.Constants.LIGHT_IDLE_AFTER_INACTIVE_TIMEOUT -->
+-    <integer name="device_idle_light_after_inactive_to_ms">240000</integer>
++    <integer name="device_idle_light_after_inactive_to_ms">0</integer>
+ 
+     <!-- Default for DeviceIdleController.Constants.LIGHT_IDLE_TIMEOUT -->
+-    <integer name="device_idle_light_idle_to_ms">300000</integer>
++    <integer name="device_idle_light_idle_to_ms">1800000</integer>
+ 
+     <!-- Default for DeviceIdleController.Constants.LIGHT_IDLE_TIMEOUT_MAX_FLEX -->
+     <integer name="device_idle_light_idle_to_init_flex_ms">60000</integer>
+ 
+     <!-- Default for DeviceIdleController.Constants.LIGHT_IDLE_TIMEOUT_MAX_FLEX -->
+-    <integer name="device_idle_light_idle_to_max_flex_ms">900000</integer>
++    <integer name="device_idle_light_idle_to_max_flex_ms">21600000</integer>
+ 
+     <!-- Default for DeviceIdleController.Constants.LIGHT_IDLE_FACTOR -->
+     <item name="device_idle_light_idle_factor" format="float" type="integer">2.0</item>
+@@ -85,7 +85,7 @@
+     <integer name="device_idle_motion_inactive_to_flex_ms">60000</integer>
+ 
+     <!-- Default for DeviceIdleController.Constants.IDLE_AFTER_INACTIVE_TIMEOUT -->
+-    <integer name="device_idle_idle_after_inactive_to_ms">15000</integer>
++    <integer name="device_idle_idle_after_inactive_to_ms">0</integer>
+ 
+     <!-- Default for DeviceIdleController.Constants.IDLE_PENDING_TIMEOUT -->
+     <integer name="device_idle_idle_pending_to_ms">300000</integer>
+@@ -97,13 +97,13 @@
+     <item name="device_idle_idle_pending_factor" format="float" type="integer">2.0</item>
+ 
+     <!-- Default for DeviceIdleController.Constants.QUICK_DOZE_DELAY_TIMEOUT -->
+-    <integer name="device_idle_quick_doze_delay_to_ms">60000</integer>
++    <integer name="device_idle_quick_doze_delay_to_ms">10000</integer>
+ 
+     <!-- Default for DeviceIdleController.Constants.IDLE_TIMEOUT -->
+-    <integer name="device_idle_idle_to_ms">3600000</integer>
++    <integer name="device_idle_idle_to_ms">14400000</integer>
+ 
+     <!-- Default for DeviceIdleController.Constants.MAX_IDLE_TIMEOUT -->
+-    <integer name="device_idle_max_idle_to_ms">21600000</integer>
++    <integer name="device_idle_max_idle_to_ms">14400000</integer>
+ 
+     <!-- Default for DeviceIdleController.Constants.IDLE_FACTOR -->
+     <item name="device_idle_idle_factor" format="float" type="integer">2.0</item>
+diff --git a/data/sounds/AllAudio.mk b/data/sounds/AllAudio.mk
+index a3495209fba0..5e19ace9bd46 100644
+--- a/data/sounds/AllAudio.mk
++++ b/data/sounds/AllAudio.mk
+@@ -34,6 +34,7 @@ PRODUCT_COPY_FILES += \
+     $(LOCAL_PATH)/alarms/ogg/Promethium.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Promethium.ogg \
+     $(LOCAL_PATH)/alarms/ogg/Scandium.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/alarms/Scandium.ogg \
+     $(LOCAL_PATH)/notifications/ogg/Adara.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Adara.ogg \
++    $(LOCAL_PATH)/notifications/fasten_seatbelt.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/fasten_seatbelt.ogg \
+     $(LOCAL_PATH)/notifications/Aldebaran.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Aldebaran.ogg \
+     $(LOCAL_PATH)/notifications/Altair.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Altair.ogg \
+     $(LOCAL_PATH)/notifications/ogg/Alya.ogg:$(TARGET_COPY_OUT_PRODUCT)/media/audio/notifications/Alya.ogg \
+diff --git a/packages/SettingsLib/src/com/android/settingslib/development/DevelopmentSettingsEnabler.java b/packages/SettingsLib/src/com/android/settingslib/development/DevelopmentSettingsEnabler.java
+index b191f888aa1a..43c1e2e67c42 100644
+--- a/packages/SettingsLib/src/com/android/settingslib/development/DevelopmentSettingsEnabler.java
++++ b/packages/SettingsLib/src/com/android/settingslib/development/DevelopmentSettingsEnabler.java
+@@ -43,7 +43,7 @@ public class DevelopmentSettingsEnabler {
+         final UserManager um = (UserManager) context.getSystemService(Context.USER_SERVICE);
+         final boolean settingEnabled = Settings.Global.getInt(context.getContentResolver(),
+                 Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
+-                Build.TYPE.equals("eng") ? 1 : 0) != 0;
++                1) != 0;
+         final boolean hasRestriction = um.hasUserRestriction(
+                 UserManager.DISALLOW_DEBUGGING_FEATURES);
+         final boolean isAdmin = um.isAdminUser();
+diff --git a/packages/SettingsProvider/res/values/defaults.xml b/packages/SettingsProvider/res/values/defaults.xml
+index 3814089553f8..3a442a508650 100644
+--- a/packages/SettingsProvider/res/values/defaults.xml
++++ b/packages/SettingsProvider/res/values/defaults.xml
+@@ -34,8 +34,8 @@
+     <!-- Default screen brightness, from 0 to 255.  102 is 40%. -->
+     <integer name="def_screen_brightness">102</integer>
+     <bool name="def_screen_brightness_automatic_mode">true</bool>
+-    <fraction name="def_window_animation_scale">100%</fraction>
+-    <fraction name="def_window_transition_scale">100%</fraction>
++    <fraction name="def_window_animation_scale">50%</fraction>
++    <fraction name="def_window_transition_scale">50%</fraction>
+     <bool name="def_haptic_feedback">true</bool>
+ 
+     <bool name="def_bluetooth_on">false</bool>
+@@ -67,7 +67,7 @@
+     <bool name="def_mount_ums_notify_enabled">true</bool>
+ 
+     <!-- user interface sound effects -->
+-    <integer name="def_power_sounds_enabled">1</integer>
++    <integer name="def_power_sounds_enabled">0</integer>
+     <string name="def_low_battery_sound" translatable="false">/product/media/audio/ui/LowBattery.ogg</string>
+     <integer name="def_dock_sounds_enabled">0</integer>
+     <integer name="def_dock_sounds_enabled_when_accessibility">0</integer>
+@@ -75,7 +75,7 @@
+     <string name="def_desk_undock_sound" translatable="false">/product/media/audio/ui/Undock.ogg</string>
+     <string name="def_car_dock_sound" translatable="false">/product/media/audio/ui/Dock.ogg</string>
+     <string name="def_car_undock_sound" translatable="false">/product/media/audio/ui/Undock.ogg</string>
+-    <integer name="def_lockscreen_sounds_enabled">1</integer>
++    <integer name="def_lockscreen_sounds_enabled">0</integer>
+     <string name="def_lock_sound" translatable="false">/product/media/audio/ui/Lock.ogg</string>
+     <string name="def_unlock_sound" translatable="false">/product/media/audio/ui/Unlock.ogg</string>
+     <string name="def_trusted_sound" translatable="false">/product/media/audio/ui/Trusted.ogg</string>
