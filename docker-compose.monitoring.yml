@@ -1,0 +1,31 @@
+# Example docker-compose override file for continuous monitoring mode
+# 
+# Usage:
+#   docker-compose -f docker-compose.yml -f docker-compose.monitoring.yml up -d
+#
+# This will run the container in monitoring mode, checking for new releases
+# according to the BUILD_MODE configuration.
+
+services:
+  the-galley:
+    # Keep container running for monitoring
+    restart: unless-stopped
+    
+    environment:
+      # Enable continuous monitoring mode
+      - MONITORING_ENABLED=true
+      
+      # Build mode configuration - choose one:
+      # Option 1: Build on every new release
+      - BUILD_MODE=on_release
+      
+      # Option 2: Build monthly on the Nth release
+      # - BUILD_MODE=monthly
+      # - MONTHLY_RELEASE=2  # Build on the 2nd release of each month
+      
+      # Check for new releases every 30 minutes (1800 seconds)
+      # Default is 3600 (1 hour) if not specified
+      - CHECK_INTERVAL=1800
+      
+      # Optional: Configure notifications (if not already in main docker-compose.yml)
+      # - APPRISE_URLS=your_notification_url_here

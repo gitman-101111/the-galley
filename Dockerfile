@@ -71,4 +71,8 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER $USR
 
-ENTRYPOINT ["/build.sh"]
+# Make monitor script executable if it exists
+RUN bash -c "if [ -f /monitor.sh ]; then chmod +x /monitor.sh; fi"
+
+# Use monitor.sh as entrypoint which will call build.sh
+ENTRYPOINT ["/monitor.sh"]
