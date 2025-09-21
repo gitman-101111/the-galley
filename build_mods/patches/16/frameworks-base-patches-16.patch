@@ -50,8 +50,8 @@ index b6dda850a311..a925ec1d07b7 100644
           This is not a registered IANA URI scheme. -->
      <string-array translatable="false" name="config_ntpServers">
 -        <item>ntp://time.android.com</item>
-+        <item>ntp://tick.usno.navy.mil</item>
-+        <item>ntp://tock.usno.navy.mil</item>
++        <item>ntp://us.pool.ntp.org</item>
++        <item>ntp://time.nist.gov</item>
 +        <item>ntp://ntp2.usno.navy.mil</item>
      </string-array>
      <!-- SNTP client config: Timeout to wait for an NTP server response in milliseconds. -->
