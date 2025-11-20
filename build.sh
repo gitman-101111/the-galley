@@ -231,7 +231,8 @@ function repo_sync_until_success() {
     echo -e "${BLUE}Sync attempt $attempt of $max_attempts${NC}"
     
     # Try to sync with reduced parallel jobs to avoid rate limiting
-    if repo sync -c -j4 --fail-fast --no-clone-bundle --no-tags --force-sync; then
+    # if repo sync -c -j4 --fail-fast --no-clone-bundle --no-tags --force-sync; then
+    if repo sync -c -j4 --force-sync; then
       echo -e "${GREEN}Repo sync successful!${NC}"
       return 0
     fi
@@ -355,16 +356,16 @@ if [[ "$SYNC" == true ]]; then
     find "$WORKDIR" -maxdepth 1 -type f -delete 2>/dev/null || true
     echo -e "${GREEN}Work directory cleaned${NC}"
   else
-    # Undo patches before sync if repo exists
-    echo -e "${BLUE}Undoing patches prior to sync${NC}"
-    if [[ -d "/src/$WORKDIR/.repo/repo" ]]; then
-      cd /src/$WORKDIR/.repo/repo && git reset --hard && git clean -ffdx || true
-    fi
-    cd /src/$WORKDIR
-    if [[ -d ".repo" ]] && command -v repo &> /dev/null; then
-      repo forall -vc "git reset --hard" || true
-      repo forall -vc "git clean -ffdx" || true
-    fi
+    ## Undo patches before sync if repo exists
+    # echo -e "${BLUE}Undoing patches prior to sync${NC}"
+    # if [[ -d "/src/$WORKDIR/.repo/repo" ]]; then
+    #   cd /src/$WORKDIR/.repo/repo && git reset --hard && git clean -ffdx || true
+    # fi
+    # cd /src/$WORKDIR
+    # if [[ -d ".repo" ]] && command -v repo &> /dev/null; then
+    #   repo forall -vc "git reset --hard" || true
+    #   repo forall -vc "git clean -ffdx" || true
+    # fi
   fi
   
   cd /src/$WORKDIR
