@@ -30,7 +30,6 @@ RUN apt-get update && apt-get --no-install-recommends -y install \
     libfreetype6 \
     python3-lz4 \
     python3-protobuf \
-    nodejs \
     build-essential \
     openssl \
     libssl-dev \
@@ -46,7 +45,10 @@ RUN apt-get update && apt-get --no-install-recommends -y install \
     apprise \
     nano \
     npm
-    
+
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && \
+    apt-get install --no-install-recommends -y nodejs
+
 RUN cp /usr/bin/signify-openbsd /usr/bin/signify
 
 #RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -68,6 +70,8 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+RUN rm -rf /var/lib/apt/lists/*
 
 USER $USR
 
